@@ -434,6 +434,8 @@ Value *BinaryExprAST::codegen() {
     return Builder.CreateFSub(L, R, "subtmp");
   case '*':
     return Builder.CreateFMul(L, R, "multmp");
+  case '/':
+    return Builder.CreateFDiv(L, R, "divtmp");
   case '<':
     L = Builder.CreateFCmpULT(L, R, "cmptmp");
     // Convert bool 0/1 to double 0.0 or 1.0
@@ -589,6 +591,7 @@ int main() {
   BinopPrecedence['+'] = 20;
   BinopPrecedence['-'] = 20;
   BinopPrecedence['*'] = 40; // highest.
+  BinopPrecedence['/'] = 40; // highest.
 
   // Prime the first token.
   fprintf(stderr, "ready> ");
